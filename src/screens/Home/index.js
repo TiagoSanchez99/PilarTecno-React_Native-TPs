@@ -16,10 +16,22 @@ import Header from '../../components/header'
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
-const Home = () => {
+const Home = (props) => {
 
     const handlePressHome = () => {
         console.log("Hola desde HOME")
+    }
+
+    const handlePressLists = () => {
+        props.navigation.navigate("ListsTab")
+    }
+
+    const handlePressMap = () => {
+        props.navigation.navigate("MapTab")
+    }
+
+    const handlePressProfile = () => {
+        props.navigation.navigate("ProfileTab")
     }
 
     return (
@@ -36,8 +48,8 @@ const Home = () => {
 
                     </View>
                     <View style={{ ...styles.gridColumn, justifyContent: 'flex-end', paddingBottom: '5%' }}>
-                        <TouchableOpacity style={{ ...styles.gridButton, backgroundColor: 'green' }}>
-                            <Text style={{ ...styles.buttonTitle }}>Pokemons</Text>
+                        <TouchableOpacity style={{ ...styles.gridButton, backgroundColor: 'green' }} onPress={handlePressLists}>
+                            <Text style={{ ...styles.buttonTitle }}>Lista</Text>
 
                         </TouchableOpacity>
 
@@ -46,7 +58,7 @@ const Home = () => {
 
                 <View style={{ ...styles.gridRow, flexDirection: 'row' }}>
                     <View style={{ ...styles.gridColumn, justifyContent: 'flex-start', paddingTop: '5%' }}>
-                        <TouchableOpacity style={{ ...styles.gridButton, backgroundColor: 'red' }}>
+                        <TouchableOpacity style={{ ...styles.gridButton, backgroundColor: 'red' }} onPress={handlePressMap}>
                             <Text style={{ ...styles.buttonTitle }}>Mapa</Text>
 
                         </TouchableOpacity>
@@ -54,7 +66,7 @@ const Home = () => {
                     </View>
 
                     <View style={{ ...styles.gridColumn, justifyContent: 'flex-start', paddingTop: '5%' }}>
-                        <TouchableOpacity style={{ ...styles.gridButton, backgroundColor: 'purple' }}>
+                        <TouchableOpacity style={{ ...styles.gridButton, backgroundColor: 'purple' }} onPress={handlePressProfile}>
                             <Text style={{ ...styles.buttonTitle }}>Perfil</Text>
 
                         </TouchableOpacity>
@@ -96,7 +108,7 @@ const styles = StyleSheet.create({
         flex: 1,
         height: '100%',
         width: '100%',
-        backgroundColor:'#707070'
+        backgroundColor: '#707070'
     }
 });
 
