@@ -11,7 +11,7 @@ import {
     Dimensions
 } from 'react-native';
 import { Icon } from '@rneui/themed';
-import Header from '../../components/header'
+import Header from '../../components/Header'
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
