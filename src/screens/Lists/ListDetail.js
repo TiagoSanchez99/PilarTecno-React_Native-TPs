@@ -26,7 +26,7 @@ const Detalle = (props) => {
 
     useEffect(() => {
         getPokemonDetail()
-    },[props])
+    }, [props])
 
     getPokemonDetail = () => {
         getPokemon(url).then(data => {
