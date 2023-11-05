@@ -6,22 +6,43 @@ import {
     StyleSheet,
     Text,
     View,
-    Dimensions
+    Dimensions,
+    Pressable
 } from 'react-native';
 import Header from '../../components/Header'
+
+import { useDispatch } from 'react-redux'
+import { appActions } from '../../redux/appRedux'
+import { Avatar } from '@rneui/themed';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const Profile = () => {
 
+    const dispatch = useDispatch()
+
+    handlePress = () => {
+        dispatch(appActions.setToken(false))
+    }
 
     return (
         <SafeAreaView style={styles.container}>
             <Header />
             <View>
+            <Text style={{ fontSize: 20 }}>PERFIL</Text>
                 <View style={{ ...styles.gridRow, flexDirection: 'row' }}>
-                    <Text style={{ fontSize: 20 }}>Profile</Text>
+                    <Avatar
+                        size={32}
+                        rounded
+                        title="P.T."
+                        containerStyle={{ backgroundColor: "#a0e310" }}
+                    />
+                    <Pressable style={{ ...styles.gridButton, backgroundColor: 'aqua' }} onPress={handlePress}>
+                        <Text style={{ ...styles.buttonTitle }}>
+                            LogOut
+                        </Text>
+                    </Pressable>
                 </View>
             </View>
         </SafeAreaView >

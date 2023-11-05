@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -10,12 +10,32 @@ import {
 } from 'react-native';
 import Header from '../../components/Header'
 import { Icon } from '@rneui/themed';
+import { getPokemon } from '../../api';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
-const Detalle = () => {
+const Detalle = (props) => {
 
+    const { url } = props.route.params.item
+
+    const [abilities, setAbilities] = useState(null)
+    const [moves, setMoves] = useState(null)
+    const [stats, setStats] = useState(null)
+    const [types, setTypes] = useState(null)
+
+    useEffect(() => {
+        getPokemonDetail()
+    },[props])
+
+    getPokemonDetail = () => {
+        getPokemon(url).then(data => {
+            setAbilities(data.abilities)
+            setMoves(data.moves)
+            setStats(data.stats)
+            setTypes(data.types)
+        })
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -31,7 +51,10 @@ const Detalle = () => {
             )} />
             <View>
                 <View style={{ ...styles.gridRow, flexDirection: 'row' }}>
-                    <Text style={{ fontSize: 20 }}>Detalle</Text>
+                    <Text style={{ fontSize: 20 }}>{pokemon && JSON.stringify(abilities)}</Text>
+                    <Text style={{ fontSize: 20 }}>{pokemon && JSON.stringify(moves)}</Text>
+                    <Text style={{ fontSize: 20 }}>{pokemon && JSON.stringify(stats)}</Text>
+                    <Text style={{ fontSize: 20 }}>{pokemon && JSON.stringify(types)}</Text>
                 </View>
             </View>
         </SafeAreaView >
