@@ -53,7 +53,12 @@ const Maps = () => {
                     },
                     1000
                 );
-                setRegion({ longitude, latitude, ...region })
+                setRegion({
+                    latitude,
+                    longitude,
+                    latitudeDelta: region.latitudeDelta,
+                    longitudeDelta: region.longitudeDelta
+                })
                 console.log('posicion actual... Latitud: ' + `${JSON.stringify(longitude)}` + ' latitud:' + `${JSON.stringify(latitude)}`)
             },
             (error) => {
@@ -73,7 +78,7 @@ const Maps = () => {
         )
     }
 
-    onRegionChange = region => {
+    const onRegionChange = region => {
         setRegion(region)
     }
 
@@ -89,36 +94,42 @@ const Maps = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <MapView
-                ref={mapRef}
-                mapType='standard'
-                style={styles.map}
-                initialRegion={region}
-                // region={this.state.region}
-                onRegionChangeComplete={onRegionChange}
-            />
-            <View style={{
-                position: 'absolute', flexDirection: 'row',
-                backgroundColor: 'white', borderRadius: 100, width: width / 10, alignSelf: 'flex-end',
-                margin: 20, marginRight: 30, alignItems: 'center', justifyContent: 'center'
-            }}>
-                <Icon
-                    name="crosshairs"
-                    type="font-awesome"
-                    color='#8d2d84'
-                    size={width / 10}
-                    onPress={() => fitCoordinates()}
-                />
-            </View>
-            <View style={styles.markerFixed}>
-                <Image style={styles.marker} source={require('../../assets/images/pin.png')}
-                />
-            </View>
-            <SafeAreaView style={styles.footer}>
-                <Text style={styles.region}>longitud:
-                    {JSON.stringify(region.longitude)}{"\n"}latitud:
-                    {JSON.stringify(region.latitude)}</Text>
-            </SafeAreaView>
+            {
+                region && (
+                    <>
+                        <MapView
+                            ref={mapRef}
+                            mapType='standard'
+                            style={styles.map}
+                            initialRegion={region}
+                            // region={this.state.region}
+                            onRegionChangeComplete={onRegionChange}
+                        />
+                        <View style={{
+                            position: 'absolute', flexDirection: 'row',
+                            backgroundColor: 'white', borderRadius: 100, width: WIDTH / 10, alignSelf: 'flex-end',
+                            margin: 20, marginRight: 30, alignItems: 'center', justifyContent: 'center'
+                        }}>
+                            <Icon
+                                name="crosshairs"
+                                type="font-awesome"
+                                color='#8d2d84'
+                                size={WIDTH / 10}
+                                onPress={() => fitCoordinates()}
+                            />
+                        </View>
+                        <View style={styles.markerFixed}>
+                            <Image style={styles.marker} source={require('../../assets/images/pin.png')}
+                            />
+                        </View>
+                        <SafeAreaView style={styles.footer}>
+                            <Text style={styles.region}>longitud:
+                                {JSON.stringify(region.longitude)}{"\n"}latitud:
+                                {JSON.stringify(region.latitude)}</Text>
+                        </SafeAreaView>
+                    </>
+                )
+            }
         </View>
     );
 }
@@ -130,9 +141,9 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     content: {
-        margin: width / 20,
-        height: width / 2.5,
-        width: width / 2.5,
+        margin: WIDTH / 20,
+        height: WIDTH / 2.5,
+        width: WIDTH / 2.5,
         borderRadius: 15,
         justifyContent: 'center',
     },
@@ -145,8 +156,8 @@ const styles = StyleSheet.create({
     },
     map: {
         ...StyleSheet.absoluteFillObject,
-        width,
-        height,
+        width: WIDTH,
+        height: HEIGHT,
         alignSelf: 'center'
     },
     marker: {
