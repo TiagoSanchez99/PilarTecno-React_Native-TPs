@@ -8,7 +8,8 @@ import {
     View,
     Button,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
+    Alert
 } from 'react-native';
 import { Icon } from '@rneui/themed';
 import Header from '../../components/Header'
@@ -19,7 +20,9 @@ const HEIGHT = Dimensions.get('window').height;
 const Home = (props) => {
 
     const handlePressHome = () => {
-        console.log("Hola desde HOME")
+        Alert.alert('Estas en HOME', 'Pulsa en OK', [
+            { text: 'OK', onPress: () => console.log('OK HOME Presionado') },
+        ]);
     }
 
     const handlePressLists = () => {
